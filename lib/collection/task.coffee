@@ -39,6 +39,7 @@ TasksSchema = new SimpleSchema(
 )
 Tasks.attachSchema TasksSchema
 Meteor.methods
+
   createTask: (brief, estimate) ->
     if !Meteor.userId()
       throw new (Meteor.Error)('not-authorized')
@@ -46,11 +47,13 @@ Meteor.methods
       brief: brief
       estimate: estimate
       user: Meteor.userId()
+
   setTaskState: (id, state) ->
     task = Tasks.findOne id
     if task.user != Meteor.userId()
       throw new (Meteor.Error)('not-authorized')
     Tasks.update id, $set: state: state, updated: new Date
+
   deleteTask: (id) ->
     task = Tasks.findOne id
     if task.user != Meteor.userId()
