@@ -8,10 +8,5 @@ Meteor.publish 'userData', ->
     @ready()
   return
 
-
-Meteor.publish 'notes', ->
-  Notes.find user: @userId
-
-
-Meteor.publish 'tasks', ->
-  Tasks.find user: @userId
+Meteor.publish 'Entries', ->
+  Entries.find user: @userId

@@ -7,29 +7,23 @@
   <div id="non-footer">
     <div id="page-container">
       <div class="contain-to-grid">
-          <nav class="top-bar">
-              <ul class="title-area">
-                  <li class="name">
-                      <h1><a href="/">Todo</a></h1>
-                  </li>
-                  <li class="toggle-topbar"><a><i class="fa fa-bars fa-2x"></i></a></li>
-              </ul>
+        <nav class="top-bar">
+          <section class="top-bar-left">
+            <h1><a href="/">TaskTracker</a></h1>
+          </section>
 
-              <section class="top-bar-section">
-                  <!-- Right Nav Section -->
-                  <ul class="right">
-                    {{#if currentUser }}
-                      <li><a href="/profile"><i class="fa fa-user"></i> {{ currentUser.services.google.given_name }}</a></li>
-                      <li><a id="logout-button" href="/"><i class="fa fa-sign-out"></i> Sign out</a></li>
-                    {{else}}
-                      <li><a id="login-button" href="#"><i class="fa fa-google-plus"></i> Sign in</a></li>
-                    {{/if}}
-                  </ul>
-                  <!-- Left Nav Section -->
-                  <ul class="left">
-                  </ul>
-              </section>
-          </nav>
+          <section class="top-bar-right">
+          <!-- Right Nav Section -->
+            <ul>
+              {{#if currentUser }}
+                <li><a href="/profile"><i class="fa fa-user"></i> {{ currentUser.services.google.given_name }}</a></li>
+                <li><a id="logout-button" href="/"><i class="fa fa-sign-out"></i> Sign out</a></li>
+              {{else}}
+                <li><a id="login-button" href="#"><i class="fa fa-google-plus"></i> Sign in</a></li>
+              {{/if}}
+            </ul>
+          </section>
+        </nav>
       </div>
 
       <div id="content">
