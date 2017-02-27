@@ -19,14 +19,9 @@ $topbar-margin-bottom: 1rem;
 $body-font-color: #4D4D4D;
 
 $topbar-color: white;
-$topbar-bg: $primary-color;
-$topbar-link-bg: $topbar-bg;
-$topbar-link-bg-hover: scale-color($topbar-link-bg, $lightness: -14%);
-$topbar-link-bg-active: $topbar-link-bg;
-$topbar-link-bg-active-hover: scale-color($topbar-link-bg, $lightness: -14%);
-$topbar-dropdown-bg: scale-color($topbar-bg, $lightness: -28%);
+$topbar-background: $primary-color;
 
-$body-bg: #FFF url(public/img/linedpaper.png) repeat;
+$body-background: #FFF url(public/img/linedpaper.png) repeat;
 $row-width: rem-calc(1400);
 $global-radius: 0.25rem;
 
@@ -69,11 +64,9 @@ $include-open-sans: false;
   src: url(public/fonts/Open_Sans/OpenSans-BoldItalic.ttf) format('truetype');
 }
 
-@import
-  //"{zurb:foundation-sites}/scss/normalize.scss",
-  "{zurb:foundation-sites}/scss/foundation.scss";
-
-  
+@import "{zurb:foundation-sites}/scss/foundation.scss";
+@include foundation-everything;
+ 
 // Custom Foundation overrides
 .column, .columns {
   @include clearfix;
@@ -81,9 +74,11 @@ $include-open-sans: false;
 }
 .row {
   position: relative;
+  max-width: 100%;
 }
 h1, h2, h3, h4, h5, h6 {
   display: inline-block;
+  margin: 0;
 }
 button, .button {
   h1, h2, h3, h4, h5, h6 {
@@ -109,7 +104,7 @@ $base-border-color: #BBBBBB;
 $light-border-color: scale-color($base-border-color, $lightness: 50%);
 $medium-border-color: scale-color($base-border-color, $lightness: 25%);
 $footer-height: 2rem;
-$footer-bg: $topbar-bg;
+$footer-background: $topbar-background;
 $input-padding: 0.57143rem;
 $max-z-index: 9999998;
 // Accent colors
@@ -172,20 +167,14 @@ $note-color: $accent-yellow;
   box-sizing: border-box; // Chrome, IE 8+, Opera, Safari 5.1
 }
 
-
 .top-bar {
   @include clearfix;
-  background-color: $topbar-bg;
   a {
     color: $topbar-color;
     text-decoration: none;
   }
   section {
-    &.top-bar-left {
-      float: left;
-    }
     ul {
-      float: right;
       list-style: none;
       li {
         float: left;
@@ -211,7 +200,7 @@ html, body {
   padding-bottom: $footer-height + $topbar-margin-bottom;
 }
 footer {
-  background-color: $footer-bg;
+  background-color: $footer-background;
   height: $footer-height;
   margin-top: (-$footer-height);
   position: relative;

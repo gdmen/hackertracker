@@ -6,14 +6,19 @@ EntriesSchema = new SimpleSchema(
   details:
     type: String
     label: 'Full details'
+    optional: true
   state:
     type: String
     label: 'Current state'
     allowedValues: ['NOW', 'SOON', 'LATER', 'DONE', 'NEVER']
     defaultValue: 'NOW'
-  subentries:
+  children:
     type: [String]
-    label: 'List of sub Entry ids'
+    label: 'List of child Entry ids'
+    optional: true
+  parent:
+    type: String
+    label: 'Parent Entry id'
     optional: true
   created:
     type: Date
@@ -28,6 +33,11 @@ EntriesSchema = new SimpleSchema(
     label: 'Date updated'
     autoValue: ->
       new Date
+  days:
+    type: [Date]
+    label: 'Days worked on'
+    autoValue: ->
+      []
   user:
     type: String
     label: 'User id'
@@ -35,16 +45,36 @@ EntriesSchema = new SimpleSchema(
 Entries.attachSchema EntriesSchema
 Meteor.methods
 
-  createEntry: (brief, details) ->
+  createEntry: (brief, details, parentId) ->
     if !Meteor.userId()
       throw new (Meteor.Error)('not-authorized')
     Entries.insert
       brief: brief
       details: details
       user: Meteor.userId()
+    if Entries.findOne parentId
+      Meteor.call 'setParent', id, parentId
 
-  setEntryState: (id, state) ->
+  getEntry: (id) ->
     entry = Entries.findOne id
+    if !entry
+      throw new (Meteor.Error)('not-found')
     if entry.user != Meteor.userId()
       throw new (Meteor.Error)('not-authorized')
+    return entry
+
+  setState: (id, state) ->
+    Meteor.call 'getEntry', id
     Entries.update id, $set: state: state, updated: new Date
+
+  setParent: (id, parentId) ->
+    Meteor.call 'getEntry', id
+    Entries.update id, $set: parent: parentId
+
+  addChild: (id, childId) ->
+    Meteor.call 'getEntry', id
+    Entries.update id, $push: children: childId, updated: new Date
+
+  removeChild: (id, childId) ->
+    Meteor.call 'getEntry', id
+    Entries.update id, $push: children: childId, updated: new Date

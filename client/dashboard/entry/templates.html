@@ -1,0 +1,25 @@
+<template name="createEntry">
+  <div class="item">
+    <div class="line">
+      <form id="create-entry">
+        <input type="text" class="brief" name="brief" placeholder="Add an entry" />
+      </form>
+    </div>
+  </div>
+  </template>
+
+<template name="briefEntry">
+  <div data-entry="{{_id}}" class="entry">
+    <div data-entry="{{_id}}" class="brief" tabindex="0">
+      {{brief}}
+    </div>
+  </div>
+</template>
+
+<template name="fullEntry">
+  <div class="entry">
+    <div data-entry="{{_id}}" class="title">
+      {{brief}}
+    </div>
+  </div>
+</template>

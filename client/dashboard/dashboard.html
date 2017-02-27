@@ -1,18 +1,17 @@
 <template name="dashboard">
   <div id="dashboard" class="row">
-    <div id="center" class="small-10 medium-8 small-centered columns">
-
-      <div id="tasks" class="item-list">
-        <div class="input">
-          {{> createTask }}
-        </div>
-        <div class="list">
-          {{#each tasks}}
-            {{> showTask}}
-          {{/each}}
-        </div>
+    <div id="entry-lists" class="small-12 medium-4 columns">
+      <div class="list">
+        {{#each entries_now}}
+          {{> briefEntry}}
+        {{/each}}
       </div>
-
+      <div class="input">
+        {{> createEntry }}
+      </div>
+    </div>
+    <div id="entry-view" class="small-0 medium-8 columns">
+      {{ fullEntry}}
     </div>
   </div>
 </template>
